@@ -1,0 +1,80 @@
+# udev rules for Nintendo 64 flashcarts
+
+# How to use:
+# 1. Put this file in /dev/udev/rules.d/
+# 2. Unplug any flashcart connected to computer
+# 3. Restart system *OR* run "sudo udevadm control --reload" in terminal
+# 4. Plug flashcart to computer
+# 5. Use UNFLoader
+
+
+# 64drive rules
+
+# v1
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_device",\
+ATTR{idVendor}=="0403",\
+ATTR{idProduct}=="6010",\
+ATTR{product}=="64drive USB device",\
+MODE="0666"
+
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_interface",\
+ATTRS{idVendor}=="0403",\
+ATTRS{idProduct}=="6010",\
+ATTRS{product}=="64drive USB device",\
+ATTR{bInterfaceNumber}=="00",\
+RUN="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/ftdi_sio/unbind'"
+
+# v2
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_device",\
+ATTR{idVendor}=="0403",\
+ATTR{idProduct}=="6014",\
+ATTR{product}=="64drive USB device",\
+MODE="0666"
+
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_interface",\
+ATTRS{idVendor}=="0403",\
+ATTRS{idProduct}=="6014",\
+ATTRS{product}=="64drive USB device",\
+RUN="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/ftdi_sio/unbind'"
+
+
+# Everdrive64 rules
+
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_device",\
+ATTR{idVendor}=="0403",\
+ATTR{idProduct}=="6001",\
+ATTR{product}=="FT245R USB FIFO",\
+MODE="0666"
+
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_interface",\
+ATTRS{idVendor}=="0403",\
+ATTRS{idProduct}=="6001",\
+ATTRS{product}=="FT245R USB FIFO",\
+RUN="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/ftdi_sio/unbind'"
+
+
+# SummerCart64 rules
+
+# v1
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_device",\
+ATTR{idVendor}=="0403",\
+ATTR{idProduct}=="6010",\
+ATTR{manufacturer}=="Polprzewodnikowy",\
+ATTR{product}=="Arrow USB Blaster",\
+MODE="0666"
+
+SUBSYSTEMS=="usb",
+ENV{DEVTYPE}=="usb_interface",\
+ATTRS{idVendor}=="0403",\
+ATTRS{idProduct}=="6010",\
+ATTRS{manufacturer}=="Polprzewodnikowy",\
+ATTRS{product}=="Arrow USB Blaster",\
+ATTR{bInterfaceNumber}=="01",\
+RUN="/bin/sh -c 'echo $kernel > /sys/bus/usb/drivers/ftdi_sio/unbind'"
